@@ -1,7 +1,7 @@
 import { BsCart4 } from 'react-icons/bs';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { setSearchField } from '../store/searchField/search-field-reducer';
-import { useAppDispatch, useAppSelector } from '../store/store';
+import { useAppDispatch } from '../store/store';
 import { ChangeEvent } from 'react';
 import { setActive } from '../store/searchField/search-field-reducer';
 

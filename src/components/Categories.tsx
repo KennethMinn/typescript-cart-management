@@ -1,10 +1,7 @@
 import { selectCategories } from '../store/categories/categories-selector';
 import { useAppDispatch, useAppSelector } from '../store/store';
-import {
-  selectProducts,
-  selectFilteredProducts,
-} from '../store/products/products-selector';
-import { MouseEvent, useState } from 'react';
+import { selectProducts } from '../store/products/products-selector';
+import { MouseEvent } from 'react';
 import { Product } from '../Routes/Home';
 import { setFilteredProducts } from '../store/products/products-reducer';
 import { selectActive } from '../store/searchField/search-selector';

@@ -82,7 +82,7 @@ const Home = () => {
       <Categories />
       <div className=" grid grid-cols-1 md:grid-cols-3 justify-items-center mt-7 gap-y-10 gap-x-0">
         {filteredProducts.map((product: Product) => (
-          <ProductsCard key={product.id} product={product} />
+          <ProductsCard key={product?.id} product={product} />
         ))}
       </div>
     </>

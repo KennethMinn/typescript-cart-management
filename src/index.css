@@ -10,3 +10,25 @@
   background: black;
   color: white;
 }
+
+.wrapper {
+  border: 1px solid #ddd;
+  display: flex;
+  overflow-x: auto;
+}
+
+.wrapper::--website-scrollbar {
+  width: 0;
+}
+
+.wrapper .item {
+  min-width: 110px;
+  line-height: 110px;
+  text-align: center;
+  background-color: #ddd;
+}
+
+prevNext:active {
+  background: #000;
+  color: white;
+}
