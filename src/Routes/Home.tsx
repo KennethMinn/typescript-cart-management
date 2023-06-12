@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { getData } from '../utils/getData';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import {

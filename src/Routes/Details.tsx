@@ -18,7 +18,7 @@ const Details = () => {
   const [isScrollable, setIsScrollable] = useState(true);
   const [images, setImages] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(1);
+  const [postsPerPage] = useState(1);
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
 

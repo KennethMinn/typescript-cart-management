@@ -4,7 +4,7 @@ import { AiOutlineStar } from 'react-icons/ai';
 import { Product } from '../Routes/Home';
 import { cut } from '../utils/cut';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store/store';
+import { useAppDispatch } from '../store/store';
 import { addItemToCart } from '../store/products/products-reducer';
 interface ProductsCardProps {
   product: Product;
