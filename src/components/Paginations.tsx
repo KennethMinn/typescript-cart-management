@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { GrPrevious } from 'react-icons/gr';
+import { GrNext } from 'react-icons/gr';
 
 interface PaginationProps {
   postsPerPage: number;
@@ -36,9 +38,9 @@ const Paginations = ({
   };
 
   return (
-    <div>
+    <div className=" flex">
       <button className=" border px-2 prevNext" onClick={prevHandler}>
-        Prev
+        <GrPrevious />
       </button>
       {pages.map((page, i) => (
         <button
@@ -55,7 +57,7 @@ const Paginations = ({
         </button>
       ))}
       <button className="border px-2 prevNext" onClick={nextHandler}>
-        Next
+        <GrNext />
       </button>
     </div>
   );
