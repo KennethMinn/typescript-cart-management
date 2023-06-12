@@ -6,9 +6,6 @@ import { cut } from '../utils/cut';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import { addItemToCart } from '../store/products/products-reducer';
-import { useRef } from 'react';
-import { selectIsAdded } from '../store/products/products-selector';
-
 interface ProductsCardProps {
   product: Product;
 }
@@ -16,8 +13,6 @@ interface ProductsCardProps {
 const ProductsCard = ({ product }: ProductsCardProps) => {
   const nav = useNavigate();
   const dispatch = useAppDispatch();
-  const inputRef = useRef(null);
-  const isAdded = useAppSelector(selectIsAdded);
 
   return (
     <div className=" border p-5 shadow-lg w-[300px] sm:w-[400px] rounded">
@@ -54,7 +49,6 @@ const ProductsCard = ({ product }: ProductsCardProps) => {
           Details
         </button>
         <button
-          ref={inputRef}
           className="btn mt-3 addToCart"
           onClick={() => dispatch(addItemToCart(product))}
         >

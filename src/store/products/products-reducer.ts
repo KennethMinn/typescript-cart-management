@@ -5,7 +5,6 @@ interface initialState {
   readonly isLoading: boolean;
   readonly filteredProducts: Product[];
   readonly cartItems: Product[];
-  readonly isAdded: boolean;
 }
 
 const INITIAL_STATE: initialState = {
@@ -13,7 +12,6 @@ const INITIAL_STATE: initialState = {
   isLoading: false,
   filteredProducts: [],
   cartItems: [],
-  isAdded: false,
 };
 
 export const productsSlice = createSlice({
@@ -43,9 +41,6 @@ export const productsSlice = createSlice({
         (cart: Product) => cart.id !== action.payload.id
       );
     },
-    setIsAdded(state, action: PayloadAction<boolean>) {
-      state.isAdded = action.payload;
-    },
   },
 });
 
@@ -56,5 +51,4 @@ export const {
   setFilteredProducts,
   addItemToCart,
   removeItemFromCart,
-  setIsAdded,
 } = productsSlice.actions;

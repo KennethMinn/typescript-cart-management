@@ -6,7 +6,10 @@ import Paginations from '../components/Paginations';
 import FadeLoader from 'react-spinners/FadeLoader';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import { selectIsLoading } from '../store/products/products-selector';
-import { setIsLoading } from '../store/products/products-reducer';
+import {
+  addItemToCart,
+  setIsLoading,
+} from '../store/products/products-reducer';
 
 const Details = () => {
   const { id } = useParams();
@@ -84,7 +87,12 @@ const Details = () => {
               </div>
             </div>
             <div className=" border ">
-              <button className=" btn addToCart">Add to Cart</button>
+              <button
+                className=" btn addToCart"
+                onClick={() => dispatch(addItemToCart(product))}
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>
