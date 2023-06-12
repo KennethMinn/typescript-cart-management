@@ -1,4 +1,5 @@
 import './App.css';
+import Cart from './Routes/Cart';
 import Details from './Routes/Details';
 import Home from './Routes/Home';
 import Navbar from './components/Navbar';
@@ -11,6 +12,7 @@ const App = () => {
         <Route path="/" element={<Navbar />}>
           <Route index element={<Home />} />
           <Route path="/details/:id" element={<Details />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>
     </>

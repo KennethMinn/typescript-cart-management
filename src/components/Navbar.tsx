@@ -1,13 +1,15 @@
 import { BsCart4 } from 'react-icons/bs';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { setSearchField } from '../store/searchField/search-field-reducer';
-import { useAppDispatch } from '../store/store';
+import { useAppDispatch, useAppSelector } from '../store/store';
 import { ChangeEvent } from 'react';
 import { setActive } from '../store/searchField/search-field-reducer';
+import { selectCartItems } from '../store/products/products-selector';
 
 const Navbar = () => {
   const nav = useNavigate();
   const dispatch = useAppDispatch();
+  const cartItems = useAppSelector(selectCartItems);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     dispatch(setSearchField(event.target.value));
@@ -30,10 +32,13 @@ const Navbar = () => {
             placeholder=" search"
             onChange={onChangeHandler}
           />
-          <div className=" text-4xl relative cursor-pointer">
+          <div
+            className=" text-4xl relative cursor-pointer"
+            onClick={() => nav('/cart')}
+          >
             <BsCart4 />
             <span className=" top-[-3px] right-[-9px] bg-black w-[21px] h-[21px] text-white font-bold text-xs flex justify-center items-center rounded-full absolute right">
-              <span>9+</span>
+              <span>{cartItems.length < 9 ? cartItems.length : '9+'}</span>
             </span>
           </div>
         </div>

@@ -16,3 +16,13 @@ export const selectFilteredProducts = createSelector(
   [selectProductsReducer],
   products => products.filteredProducts
 );
+
+export const selectCartItems = createSelector(
+  [selectProductsReducer],
+  products => products.cartItems
+);
+
+export const selectIsAdded = createSelector(
+  [selectProductsReducer],
+  products => products.isAdded
+);
