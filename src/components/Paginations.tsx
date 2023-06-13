@@ -38,7 +38,7 @@ const Paginations = ({
   };
 
   return (
-    <div className=" flex">
+    <div className=" flex text-2xl">
       <button className=" border px-2 prevNext" onClick={prevHandler}>
         <GrPrevious />
       </button>

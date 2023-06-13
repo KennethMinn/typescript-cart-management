@@ -118,10 +118,13 @@ const Details = () => {
         </div>
       ) : (
         <div className=" flex justify-center flex-col items-center border-[10px] mt-5 p-10">
-          <div className=" mb-6 border p-5 shadow">
+          <div className=" mb-10 ">
             {currentPost.map((img, i) => (
               <div className="" key={i}>
-                <img className="h-[100px] md:h-[200px] mb-3" src={img} />
+                <img
+                  className="h-[130px] object-contain md:h-[200px]"
+                  src={img}
+                />
               </div>
             ))}
           </div>
