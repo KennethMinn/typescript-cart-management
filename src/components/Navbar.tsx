@@ -38,7 +38,7 @@ const Navbar = () => {
           >
             <BsCart4 />
             <span className=" top-[-3px] right-[-9px] bg-black w-[21px] h-[21px] text-white font-bold text-xs flex justify-center items-center rounded-full absolute right">
-              <span>{cartItems.length < 9 ? cartItems.length : '9+'}</span>
+              <span>{cartItems.length < 10 ? cartItems.length : '9+'}</span>
             </span>
           </div>
         </div>

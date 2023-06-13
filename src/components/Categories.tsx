@@ -20,10 +20,13 @@ const Categories = () => {
     dispatch(setActive('All'));
   };
 
-  const onClickHandler = (event: MouseEvent<HTMLButtonElement>): void => {
+  const onClickHandler = (
+    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ): void => {
     const cat = productsArr.filter(
       (product: Product): boolean =>
-        product.category.toLowerCase() === event.target.textContent
+        product.category.toLowerCase() ===
+        (event.target as HTMLButtonElement).textContent
     );
     dispatch(setFilteredProducts(cat));
   };

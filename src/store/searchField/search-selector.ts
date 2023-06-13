@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { RootState } from '../store';
 
-const selectSearchReducer = state => state.search;
+const selectSearchReducer = (state: RootState) => state.search;
 
 export const selectSearchField = createSelector(
   [selectSearchReducer],

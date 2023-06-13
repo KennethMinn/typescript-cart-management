@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const cartItems = useAppSelector(selectCartItems);
+  // const cartItems = useAppSelector(state => state.products.cartItems);
+
   const nav = useNavigate();
 
   const subTotal = cartItems.reduce(

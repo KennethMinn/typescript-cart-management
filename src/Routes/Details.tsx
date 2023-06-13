@@ -13,7 +13,7 @@ import {
 
 const Details = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState<Product>();
+  const [product, setProduct] = useState<Product | null>(null);
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   const [isScrollable, setIsScrollable] = useState(true);
   const [images, setImages] = useState<string[]>([]);
@@ -35,7 +35,6 @@ const Details = () => {
       setProduct(productDetail);
       setImages(productDetail?.images);
       dispatch(setIsLoading(false));
-      console.log(productDetail);
     };
     fetchDetails();
   }, [id]);
@@ -89,7 +88,7 @@ const Details = () => {
             <div className=" border ">
               <button
                 className=" btn addToCart"
-                onClick={() => dispatch(addItemToCart(product))}
+                onClick={() => product && dispatch(addItemToCart(product))}
               >
                 Add to Cart
               </button>

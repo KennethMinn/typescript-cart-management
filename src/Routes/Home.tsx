@@ -61,7 +61,6 @@ const Home = () => {
     };
     fetchData();
   }, []);
-  console.log(productsArr);
 
   useEffect(() => {
     const newFilteredMonster = productsArr.filter((product: Product) =>
