@@ -5,6 +5,8 @@ interface initialState {
   readonly isLoading: boolean;
   readonly filteredProducts: Product[];
   readonly cartItems: Product[];
+  readonly screenSize: number;
+  readonly isPhone: boolean;
 }
 
 const INITIAL_STATE: initialState = {
@@ -12,6 +14,8 @@ const INITIAL_STATE: initialState = {
   isLoading: false,
   filteredProducts: [],
   cartItems: [],
+  screenSize: window.innerWidth,
+  isPhone: true,
 };
 
 export const productsSlice = createSlice({
@@ -41,6 +45,12 @@ export const productsSlice = createSlice({
         (cart: Product) => cart.id !== action.payload.id
       );
     },
+    setScreenSize(state, action: PayloadAction<number>) {
+      state.screenSize = action.payload;
+    },
+    setIsPhone(state, action: PayloadAction<boolean>) {
+      state.isPhone = action.payload;
+    },
   },
 });
 
@@ -51,4 +61,6 @@ export const {
   setFilteredProducts,
   addItemToCart,
   removeItemFromCart,
+  setScreenSize,
+  setIsPhone,
 } = productsSlice.actions;

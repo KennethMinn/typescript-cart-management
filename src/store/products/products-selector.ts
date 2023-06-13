@@ -22,3 +22,13 @@ export const selectCartItems = createSelector(
   [selectProductsReducer],
   products => products.cartItems
 );
+
+export const selectScreenSize = createSelector(
+  [selectProductsReducer],
+  products => products.screenSize
+);
+
+export const selectIsPhone = createSelector(
+  [selectProductsReducer],
+  products => products.isPhone
+);

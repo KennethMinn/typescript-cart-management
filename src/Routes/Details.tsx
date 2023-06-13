@@ -5,22 +5,29 @@ import { Product } from './Home';
 import Paginations from '../components/Paginations';
 import FadeLoader from 'react-spinners/FadeLoader';
 import { useAppDispatch, useAppSelector } from '../store/store';
-import { selectIsLoading } from '../store/products/products-selector';
+import {
+  selectIsLoading,
+  selectIsPhone,
+  selectScreenSize,
+} from '../store/products/products-selector';
 import {
   addItemToCart,
   setIsLoading,
+  setIsPhone,
+  setScreenSize,
 } from '../store/products/products-reducer';
 
 const Details = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
-  const [screenSize, setScreenSize] = useState(window.innerWidth);
-  const [isScrollable, setIsScrollable] = useState(true);
   const [images, setImages] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(1);
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
+
+  const screenSize = useAppSelector(selectScreenSize);
+  const isPhone = useAppSelector(selectIsPhone);
 
   const lastIndex = currentPage * postsPerPage;
   const firstIndex = lastIndex - postsPerPage;
@@ -40,7 +47,7 @@ const Details = () => {
   }, [id]);
 
   useEffect(() => {
-    const handleResize = () => setScreenSize(window.innerWidth);
+    const handleResize = () => dispatch(setScreenSize(window.innerWidth));
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
@@ -48,8 +55,10 @@ const Details = () => {
 
   useEffect(() => {
     if (screenSize <= 700) {
-      setIsScrollable(false);
-    } else setIsScrollable(true);
+      dispatch(setIsPhone(true));
+    } else {
+      dispatch(setIsPhone(false));
+    }
   }, [screenSize]);
 
   if (isLoading)
@@ -96,7 +105,7 @@ const Details = () => {
           </div>
         </div>
       </div>
-      {isScrollable ? (
+      {!isPhone ? (
         <div className="border-[20px] overflow-x-scroll p-4 shadow flex justify-center gap-3 mt-20">
           {product?.images.map((img, i) => (
             <div className="border p-4" key={i}>

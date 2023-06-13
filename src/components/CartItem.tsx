@@ -1,10 +1,18 @@
 import { GrLinkPrevious } from 'react-icons/gr';
 import { GrLinkNext } from 'react-icons/gr';
 import { VscTrash } from 'react-icons/vsc';
-import { removeItemFromCart } from '../store/products/products-reducer';
-import { useAppDispatch } from '../store/store';
+import {
+  removeItemFromCart,
+  setIsPhone,
+  setScreenSize,
+} from '../store/products/products-reducer';
+import { useAppDispatch, useAppSelector } from '../store/store';
 import { Product } from '../Routes/Home';
 import { useState, useEffect } from 'react';
+import {
+  selectIsPhone,
+  selectScreenSize,
+} from '../store/products/products-selector';
 
 interface cartProps {
   cart: Product;
@@ -13,11 +21,13 @@ interface cartProps {
 }
 
 const CartItem = ({ cart, calcDecrement, calcIncrement }: cartProps) => {
-  const [screenSize, setScreenSize] = useState(window.innerWidth);
-  const [isPhone, setIsPhone] = useState(true);
+  const screenSize = useAppSelector(selectScreenSize);
+  const isPhone = useAppSelector(selectIsPhone);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const handleResize = () => setScreenSize(window.innerWidth);
+    const handleResize = () => dispatch(setScreenSize(window.innerWidth));
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
@@ -25,11 +35,12 @@ const CartItem = ({ cart, calcDecrement, calcIncrement }: cartProps) => {
 
   useEffect(() => {
     if (screenSize <= 700) {
-      setIsPhone(true);
-    } else setIsPhone(false);
+      dispatch(setIsPhone(true));
+    } else {
+      dispatch(setIsPhone(false));
+    }
   }, [screenSize]);
 
-  const dispatch = useAppDispatch();
   const { price, title, thumbnail } = cart;
 
   const [count, setCount] = useState(1);
