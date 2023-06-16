@@ -33,7 +33,6 @@ export const selectIsPhone = createSelector(
   products => products.isPhone
 );
 
-export const selectTotal = createSelector(
-  [selectProductsReducer],
-  products => products.total
+export const selectTotal = createSelector([selectCartItems], cartItems =>
+  cartItems.reduce((pv, cv) => pv + cv.price * cv.quantity, 0)
 );

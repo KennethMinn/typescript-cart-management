@@ -10,7 +10,7 @@ import {
 } from '../store/products/products-reducer';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import { Product } from '../Routes/Home';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   selectIsPhone,
   selectScreenSize,

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import CartItem from '../components/CartItem';
 import {
   selectCartItems,
@@ -37,7 +36,7 @@ const Cart = () => {
       </div>
       <div className=" flex font-bold text-2xl justify-around mt-5 md:mt-0">
         <h1>total :</h1>
-        <h1 className="">${total}</h1>
+        <h1 className="">${total.toFixed(2)}</h1>
       </div>
     </>
   );
