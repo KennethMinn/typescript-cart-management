@@ -2,6 +2,8 @@ import { GrLinkPrevious } from 'react-icons/gr';
 import { GrLinkNext } from 'react-icons/gr';
 import { VscTrash } from 'react-icons/vsc';
 import {
+  decreaseQuantity,
+  increaseQuantity,
   removeItemFromCart,
   setIsPhone,
   setScreenSize,
@@ -16,11 +18,9 @@ import {
 
 interface cartProps {
   cart: Product;
-  calcIncrement: (n: number) => void;
-  calcDecrement: (n: number) => void;
 }
 
-const CartItem = ({ cart, calcDecrement, calcIncrement }: cartProps) => {
+const CartItem = ({ cart }: cartProps) => {
   const screenSize = useAppSelector(selectScreenSize);
   const isPhone = useAppSelector(selectIsPhone);
 
@@ -41,30 +41,7 @@ const CartItem = ({ cart, calcDecrement, calcIncrement }: cartProps) => {
     }
   }, [screenSize]);
 
-  const { price, title, thumbnail } = cart;
-
-  const [count, setCount] = useState(1);
-
-  const prevHandler = () => {
-    setCount(prev => prev - 1);
-    calcDecrement(price);
-    console.log(count);
-    if (count === 1) dispatch(removeItemFromCart(cart));
-  };
-
-  const nextHandler = () => {
-    if (count >= 1) {
-      setCount(prev => prev + 1);
-      calcIncrement(price);
-    }
-  };
-
-  const oneItemPrice = price * count;
-
-  const delBtn = () => {
-    dispatch(removeItemFromCart(cart));
-    calcDecrement(oneItemPrice);
-  };
+  const { price, title, thumbnail, quantity } = cart;
 
   if (isPhone)
     return (
@@ -79,21 +56,21 @@ const CartItem = ({ cart, calcDecrement, calcIncrement }: cartProps) => {
             <div className=" flex items-center">
               <div
                 className="border px-2 flex justify-center me-5 cursor-pointer py-1 text-2xl"
-                onClick={prevHandler}
+                onClick={() => dispatch(decreaseQuantity(cart))}
               >
                 <GrLinkPrevious />
               </div>
-              <span className=" ">{count}</span>
+              <span className=" ">{quantity}</span>
               <div
                 className=" border px-2 flex justify-center ms-5 cursor-pointer py-1 text-2xl"
-                onClick={nextHandler}
+                onClick={() => dispatch(increaseQuantity(cart))}
               >
                 <GrLinkNext />
               </div>
             </div>
             <div
               className=" text-4xl text-red-600 cursor-pointer"
-              onClick={delBtn}
+              onClick={() => dispatch(removeItemFromCart(cart))}
             >
               <VscTrash />
             </div>
@@ -113,20 +90,23 @@ const CartItem = ({ cart, calcDecrement, calcIncrement }: cartProps) => {
         <div className=" flex items-center">
           <div
             className="border px-2 flex justify-center me-5 cursor-pointer py-1"
-            onClick={prevHandler}
+            onClick={() => dispatch(decreaseQuantity(cart))}
           >
             <GrLinkPrevious />
           </div>
-          <span className=" ">{count}</span>
+          <span className=" ">{quantity}</span>
           <div
             className=" border px-2 flex justify-center ms-5 cursor-pointer py-1"
-            onClick={nextHandler}
+            onClick={() => dispatch(increaseQuantity(cart))}
           >
             <GrLinkNext />
           </div>
         </div>
       </div>
-      <div className=" text-4xl text-red-600 cursor-pointer" onClick={delBtn}>
+      <div
+        className=" text-4xl text-red-600 cursor-pointer"
+        onClick={() => dispatch(removeItemFromCart(cart))}
+      >
         <VscTrash />
       </div>
     </div>

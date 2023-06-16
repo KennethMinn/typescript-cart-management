@@ -32,3 +32,8 @@ export const selectIsPhone = createSelector(
   [selectProductsReducer],
   products => products.isPhone
 );
+
+export const selectTotal = createSelector(
+  [selectProductsReducer],
+  products => products.total
+);
