@@ -5,7 +5,7 @@ import {
   setSearchField,
 } from '../store/searchField/search-field-reducer';
 import { useAppDispatch, useAppSelector } from '../store/store';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { setActive } from '../store/searchField/search-field-reducer';
 import { selectCartItems } from '../store/products/products-selector';
 import { RiAccountCircleFill } from 'react-icons/ri';
