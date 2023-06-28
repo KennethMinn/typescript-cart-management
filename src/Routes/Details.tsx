@@ -82,15 +82,15 @@ const Details = () => {
           <div className=" font-bold mt-4 flex items-center justify-between">
             <div>
               <div className="flex">
-                <div>discount : </div>
+                <div className=" w-[100px]">discount : </div>
                 <p> ${product?.discountPercentage}</p>
               </div>
               <div className="flex">
-                <div>price : </div>
+                <div className=" w-[100px]">price : </div>
                 <p> ${product?.price}</p>
               </div>
               <div className="flex">
-                <div>rate : </div>
+                <div className=" w-[100px]">rate : </div>
                 <p> ${product?.rating}</p>
               </div>
             </div>

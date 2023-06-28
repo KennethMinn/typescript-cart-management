@@ -34,7 +34,7 @@ const Categories = () => {
   return (
     <div className=" flex flex-wrap gap-4 mt-5">
       <button
-        className={`btn ${
+        className={`btn cat-btn ${
           active === 'All' ? 'bg-black text-white' : ' text-black'
         }`}
         onClick={allHandler}
@@ -44,7 +44,7 @@ const Categories = () => {
       {categories.map((cat: string) => (
         <button
           key={cat}
-          className={`btn ${
+          className={`btn cat-btn ${
             active === cat ? 'bg-black text-white' : ' text-black'
           }`}
           onClick={event => {

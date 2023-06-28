@@ -1,19 +1,30 @@
 import { BsCart4 } from 'react-icons/bs';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { setSearchField } from '../store/searchField/search-field-reducer';
+import {
+  setIsDropDownOpen,
+  setSearchField,
+} from '../store/searchField/search-field-reducer';
 import { useAppDispatch, useAppSelector } from '../store/store';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { setActive } from '../store/searchField/search-field-reducer';
 import { selectCartItems } from '../store/products/products-selector';
+import { RiAccountCircleFill } from 'react-icons/ri';
+import Dropdown from './Dropdown';
+import { selectIsDropDownOpen } from '../store/searchField/search-selector';
 
 const Navbar = () => {
   const nav = useNavigate();
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector(selectCartItems);
+  const isDropDownOpen = useAppSelector(selectIsDropDownOpen);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     dispatch(setSearchField(event.target.value));
     dispatch(setActive('All'));
+  };
+
+  const accountHandler = () => {
+    dispatch(setIsDropDownOpen(!isDropDownOpen));
   };
 
   return (
@@ -40,6 +51,12 @@ const Navbar = () => {
             <span className=" top-[-3px] right-[-9px] bg-black w-[21px] h-[21px] text-white font-bold text-xs flex justify-center items-center rounded-full absolute right">
               <span>{cartItems.length < 10 ? cartItems.length : '9+'}</span>
             </span>
+          </div>
+          <div className=" account-icon">
+            <div className=" text-4xl cursor-pointer" onClick={accountHandler}>
+              <RiAccountCircleFill />
+            </div>
+            {isDropDownOpen && <Dropdown />}
           </div>
         </div>
       </div>

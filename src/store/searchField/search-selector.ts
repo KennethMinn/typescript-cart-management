@@ -12,3 +12,8 @@ export const selectActive = createSelector(
   [selectSearchReducer],
   search => search.active
 );
+
+export const selectIsDropDownOpen = createSelector(
+  [selectSearchReducer],
+  search => search.isDropDownOpen
+);
