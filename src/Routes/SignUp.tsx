@@ -3,13 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import { auth } from '../utils/Firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { useAppDispatch } from '../store/store';
-import { setUser } from '../store/users/user-reducer';
+import Cookies from 'js-cookie';
 
 const SignUp = () => {
   const signUpForm = useRef<HTMLFormElement>(null);
   const nav = useNavigate();
-  const dispatch = useAppDispatch();
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -22,7 +20,7 @@ const SignUp = () => {
         email,
         password
       );
-      dispatch(setUser(signUpForm.current?.displayName.value));
+      Cookies.set('user', signUpForm.current?.displayName.value);
       signUpForm.current?.reset();
       nav('/signIn');
       console.log({ ...user, displayName: userName });
