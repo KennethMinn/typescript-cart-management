@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { auth } from '../utils/Firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-const SignUp = () => {
+const SignIn = () => {
   const signInForm = useRef<HTMLFormElement>(null);
   const nav = useNavigate();
 
@@ -63,4 +63,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
