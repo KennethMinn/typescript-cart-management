@@ -17,6 +17,7 @@ const SignIn = () => {
       console.log({ user });
       signInForm.current?.reset();
       nav('/');
+      console.log(auth.currentUser?.displayName);
     } catch (error: any) {
       alert(error.code);
     }

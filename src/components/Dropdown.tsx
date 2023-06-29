@@ -2,22 +2,21 @@ import { useState } from 'react';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/Firebase';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../store/store';
+import { useAppDispatch } from '../store/store';
 import { setIsDropDownOpen } from '../store/searchField/search-field-reducer';
-import { selectUser } from '../store/users/user-selectors';
 
 const Dropdown = () => {
   //states
   const [isLoggedIn, setIsLogIn] = useState(false);
   const nav = useNavigate();
   const dispatch = useAppDispatch();
-  const user = useAppSelector(selectUser);
 
   //functions
 
   const signOutHandler = () => {
     signOut(auth);
     dispatch(setIsDropDownOpen(false));
+    setIsLogIn(false);
   };
 
   const signInHandler = () => {
@@ -34,7 +33,7 @@ const Dropdown = () => {
   return (
     <div className="flex flex-col dropDownProfile">
       <ul className=" flex flex-col gap-4">
-        <li>{isLoggedIn ? `${user}` : 'Nobody'}</li>
+        <li>{isLoggedIn ? `${auth.currentUser?.displayName}` : 'Nobody'}</li>
         <li>Setting</li>
         <hr />
         {isLoggedIn ? (
