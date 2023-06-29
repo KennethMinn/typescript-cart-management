@@ -50,7 +50,7 @@ const Details = () => {
         <div className=" md:w-[700px]">
           <img
             src={images[index]}
-            className=" w-[500px] h-[300px] rounded-md object-contain"
+            className=" w-[500px] h-[300px] md:border-2 md:p-10 md:my-0 mt-10 mb-12 my rounded-md object-contain"
           />
         </div>
         <div>
