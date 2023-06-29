@@ -2,36 +2,22 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getData } from '../utils/getData';
 import { Product } from './Home';
-import Paginations from '../components/Paginations';
 import FadeLoader from 'react-spinners/FadeLoader';
 import { useAppDispatch, useAppSelector } from '../store/store';
-import {
-  selectIsLoading,
-  selectIsPhone,
-  selectScreenSize,
-} from '../store/products/products-selector';
+import { selectIsLoading } from '../store/products/products-selector';
 import {
   addItemToCart,
   setIsLoading,
-  setIsPhone,
-  setScreenSize,
 } from '../store/products/products-reducer';
 
 const Details = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [images, setImages] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(1);
   const isLoading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
-
-  const screenSize = useAppSelector(selectScreenSize);
-  const isPhone = useAppSelector(selectIsPhone);
-
-  const lastIndex = currentPage * postsPerPage;
-  const firstIndex = lastIndex - postsPerPage;
-  const currentPost = images.slice(firstIndex, lastIndex);
+  const [index, setIndex] = useState(0);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -46,20 +32,10 @@ const Details = () => {
     fetchDetails();
   }, [id]);
 
-  useEffect(() => {
-    const handleResize = () => dispatch(setScreenSize(window.innerWidth));
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (screenSize <= 700) {
-      dispatch(setIsPhone(true));
-    } else {
-      dispatch(setIsPhone(false));
-    }
-  }, [screenSize]);
+  const handleClick = (index: number) => {
+    setIndex(index);
+    setActive(index);
+  };
 
   if (isLoading)
     return (
@@ -70,28 +46,36 @@ const Details = () => {
 
   return (
     <>
-      <div className=" md:flex md:flex-row flex flex-col items-center text-center md:text-start mt-10 md:justify-around ">
-        <div>
-          <img src={product?.thumbnail} className=" w-[300px]" />
+      <div className=" px-7 md:p-0 md:flex h-screen items-center justify-around md:mt-[-100px] ">
+        <div className=" md:w-[700px]">
+          <img
+            src={images[index]}
+            className=" w-[500px] h-[300px] rounded-md object-contain"
+          />
         </div>
         <div>
-          <h1 className=" font-bold text-2xl md:text-4xl mb-2 mt-5 md:mt-0">
+          <h1 className=" font-bold text-2xl md:text-4xl mb-2 mt-[-30px] md:mt-0">
             {product?.title} ({product?.brand})
           </h1>
           <p className="text-sm md:text-[16px]">{product?.description}</p>
-          <div className=" font-bold mt-4 flex items-center justify-between">
+          <div className=" flex gap-1 md:gap-3 mt-5 md:w-[800px] overflow-x-auto">
+            {images.map((img, i) => (
+              <img
+                onClick={() => handleClick(i)}
+                src={img}
+                className={`md:h-[120px] h-[70px] border md:border-2 rounded-md cursor-pointer ${
+                  active === i
+                    ? ' border-yellow-400 border-[2px] md:border-[3px]'
+                    : 'bottom-0'
+                }`}
+              />
+            ))}
+          </div>
+          <div className=" font-bold mt-6 flex items-center justify-between">
             <div>
               <div className="flex">
-                <div className=" w-[100px]">discount : </div>
+                <div className=" w-[80px]">discount : </div>
                 <p> ${product?.discountPercentage}</p>
-              </div>
-              <div className="flex">
-                <div className=" w-[100px]">price : </div>
-                <p> ${product?.price}</p>
-              </div>
-              <div className="flex">
-                <div className=" w-[100px]">rate : </div>
-                <p> ${product?.rating}</p>
               </div>
             </div>
             <div className=" border ">
@@ -105,37 +89,6 @@ const Details = () => {
           </div>
         </div>
       </div>
-      {!isPhone ? (
-        <div className="border-[20px] overflow-x-scroll p-4 shadow flex justify-center gap-3 mt-20">
-          {product?.images.map((img, i) => (
-            <div className="border p-4" key={i}>
-              <img
-                className="h-[100px] object-contain  md:h-[200px]"
-                src={img}
-              />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className=" flex justify-center flex-col items-center border-[10px] mt-5 p-10">
-          <div className=" mb-10 ">
-            {currentPost.map((img, i) => (
-              <div className="" key={i}>
-                <img
-                  className="h-[130px] object-contain md:h-[200px]"
-                  src={img}
-                />
-              </div>
-            ))}
-          </div>
-          <Paginations
-            postsPerPage={postsPerPage}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-            images={images}
-          />
-        </div>
-      )}
     </>
   );
 };
